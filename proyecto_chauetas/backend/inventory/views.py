@@ -1,13 +1,11 @@
 from bson import ObjectId
-from rest_framework import viewsets, permissions, status
+from rest_framework import viewsets, status
 from rest_framework.response import Response
 from .serializers import ItemSerializer, CategorySerializer, LocationSerializer
 from .mongo import categories, locations, items, to_object_id, get_item_by_id
 
 
 class CategoryViewSet(viewsets.ViewSet):
-    permission_classes = [permissions.IsAuthenticated]
-
     def list(self, request):
         docs = list(categories.find())
         serializer = CategorySerializer(docs, many=True)
@@ -51,8 +49,6 @@ class CategoryViewSet(viewsets.ViewSet):
 
 
 class LocationViewSet(viewsets.ViewSet):
-    permission_classes = [permissions.IsAuthenticated]
-
     def list(self, request):
         docs = list(locations.find())
         serializer = LocationSerializer(docs, many=True)
@@ -96,8 +92,6 @@ class LocationViewSet(viewsets.ViewSet):
 
 
 class ItemViewSet(viewsets.ViewSet):
-    permission_classes = [permissions.IsAuthenticated]
-
     def list(self, request):
         docs = list(items.find().sort('created_at', -1))
         serializer = ItemSerializer(docs, many=True)

@@ -22,7 +22,9 @@ python manage.py migrate
 python manage.py runserver 0.0.0.0:8000
 ```
 
-La API estará en `http://localhost:8000/api/`.
+Abre `http://localhost:8000/` para usar la interfaz web local.
+
+La API seguirá disponible en `http://localhost:8000/api/`.
 
 Credenciales de prueba (desarrollo):
 

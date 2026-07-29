@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inventario Escolar</title>
+  <style>
+    body { margin:0; font-family:system-ui, sans-serif; background:#081029; color:#eaf4ff; }
+    .page { max-width:960px; margin:0 auto; padding:24px; }
+    .header { display:flex; justify-content:space-between; align-items:center; gap:16px; }
+    .card { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12); border-radius:18px; padding:20px; margin-top:20px; }
+    .field { display:grid; gap:8px; margin-bottom:14px; }
+    input, button { width:100%; padding:12px 14px; border-radius:12px; border:1px solid rgba(255,255,255,0.16); background:rgba(255,255,255,0.06); color:#eaf4ff; }
+    button { background:#7ce0ff; color:#0c1934; border:none; cursor:pointer; }
+    .items { display:grid; gap:12px; }
+    .item { display:flex; justify-content:space-between; align-items:center; padding:14px 16px; border-radius:14px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="header">
+      <div>
+        <h1>Inventario Escolar</h1>
+        <p>Servicio web local con Django.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Agregar ítem</h2>
+      <form id="item-form">
+        <div class="field">
+          <label for="name">Nombre</label>
+          <input id="name" name="name" type="text" required>
+        </div>
+        <div class="field">
+          <label for="quantity">Cantidad</label>
+          <input id="quantity" name="quantity" type="number" value="1" min="1" required>
+        </div>
+        <button type="submit">Agregar</button>
+      </form>
+    </div>
+
+    <div class="card">
+      <h2>Inventario</h2>
+      <div id="items" class="items"></div>
+    </div>
+  </div>
+
+  <script>
+    const API_BASE = '/api';
+
+    async function fetchItems() {
+      const res = await fetch(`${API_BASE}/items/`);
+      const items = await res.json();
+      const itemsNode = document.getElementById('items');
+      itemsNode.innerHTML = items.length ? items.map(item => `<div class="item"><span>${item.name}</span><strong>${item.quantity}</strong></div>`).join('') : '<div>No hay ítems registrados.</div>';
+    }
+
+    document.getElementById('item-form').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const quantity = Number(document.getElementById('quantity').value);
+      if (!name || quantity <= 0) return;
+
+      await fetch(`${API_BASE}/items/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, quantity }),
+      });
+
+      document.getElementById('name').value = '';
+      document.getElementById('quantity').value = '1';
+      fetchItems();
+    });
+
+    fetchItems();
+  </script>
+</body>
+</html>

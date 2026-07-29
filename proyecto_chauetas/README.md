@@ -13,4 +13,12 @@ npm install
 npm start
 ```
 
-Nota: Ajusta `API_BASE` en `frontend/App.js` según tu emulador o dispositivo.
+- App de escritorio local:
+
+```bash
+cd desktop
+npm install
+npm start
+```
+
+Nota: La app de escritorio usa el backend local en `http://127.0.0.1:8000/api`.
