@@ -1,0 +1,17 @@
+{
+  "name": "cecytem-inventario-app",
+  "version": "1.0.0",
+  "main": "node_modules/expo/AppEntry.js",
+  "scripts": {
+    "start": "expo start"
+  },
+  "dependencies": {
+    "expo": "~48.0.0",
+    "react": "18.1.0",
+    "react-native": "0.71.8",
+    "@react-native-async-storage/async-storage": "^1.17.11",
+    "react-native-paper": "^5.10.0",
+    "expo-linear-gradient": "~13.0.0"
+  }
+}
+
