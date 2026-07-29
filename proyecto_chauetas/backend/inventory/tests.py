@@ -1,7 +1,7 @@
 from django.test import TestCase
 from rest_framework.test import APIClient
 from django.contrib.auth import get_user_model
-from .mongo import categories, locations, items
+from .models import Category, Location, Item
 
 
 class InventoryAPITests(TestCase):
@@ -10,9 +10,9 @@ class InventoryAPITests(TestCase):
         self.user_credentials = {'username': 'admin2', 'password': 'testpass'}
         User = get_user_model()
         User.objects.create_user(username=self.user_credentials['username'], password=self.user_credentials['password'])
-        categories.delete_many({})
-        locations.delete_many({})
-        items.delete_many({})
+        Category.objects.all().delete()
+        Location.objects.all().delete()
+        Item.objects.all().delete()
 
     def authenticate(self):
         resp = self.client.post('/api/token/', self.user_credentials, format='json')
@@ -55,5 +55,5 @@ class InventoryAPITests(TestCase):
         self.assertEqual(resp_item.status_code, 201)
         self.assertEqual(resp_item.data['name'], 'Cuaderno')
         self.assertEqual(resp_item.data['quantity'], 12)
-        self.assertEqual(resp_item.data['category']['id'], category_id)
-        self.assertEqual(resp_item.data['location']['id'], location_id)
+        self.assertEqual(str(resp_item.data['category']['id']), category_id)
+        self.assertEqual(str(resp_item.data['location']['id']), location_id)
