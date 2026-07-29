@@ -1,0 +1,37 @@
+[{
+  "_id": {
+    "$oid": "6a6983fec6b480d062078f32"
+  },
+  "nombre": "Proyector chaques",
+  "categoria": "Equipo de Cómputo",
+  "cantidad": 5,
+  "ubicación": "Laboratorio 1",
+  "estado": "Disponible"
+},
+{
+  "_id": {
+    "$oid": "6a69846043abf241279cbd8a"
+  },
+  "nombre": "Proyector Epson",
+  "categoria": "Equipo de Cómputo",
+  "cantidad": 5,
+  "estado": "Disponible"
+},
+{
+  "_id": {
+    "$oid": "6a69846043abf241279cbd8b"
+  },
+  "nombre": "Cable HDMI 5m",
+  "categoria": "Accesorios",
+  "cantidad": 12,
+  "estado": "Disponible"
+},
+{
+  "_id": {
+    "$oid": "6a69846043abf241279cbd8c"
+  },
+  "nombre": "Butaca Escolar",
+  "categoria": "Mobiliario",
+  "cantidad": 40,
+  "estado": "Buen estado"
+}]
