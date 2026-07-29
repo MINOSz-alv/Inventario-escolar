@@ -1,0 +1,18 @@
+flowchart LR
+  A[Django app\nschool_inventory] -->|MONGO_URI / DB NAME| B[inventory/mongo.py]
+  B --> C[MongoClient(settings.MONGO_URI)]
+  C --> D[(MongoDB Server)]
+  D --> D1[cecytem_db]
+  D1 --> E1[collection: categories]
+  D1 --> E2[collection: locations]
+  D1 --> E3[collection: items]
+  E3 --> F[Index: created_at (-1)]
+  E3 --> G[Index: category_id (1)]
+  E3 --> H[Index: location_id (1)]
+  E3 --> I[Text index: name, description]
+  subgraph Security & Ops
+    S1[Auth user: readWrite on cecytem_db]
+    S2[ReplicaSet + TLS]
+    S3[Backups & Monitoring]
+  end
+  D --> Security & Ops
